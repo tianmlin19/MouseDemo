@@ -19,7 +19,7 @@ class MouseDemoApplicationTests {
 
     @Test
     void contextLoads() throws Exception {
-        List<InvestDetail> details = investDetailMapper.listInvestByStockName("12");
+        List<InvestDetail> details = investDetailMapper.listInvestByStockName("TCL科技");
         log.info("details:{}", details);
 
     }
