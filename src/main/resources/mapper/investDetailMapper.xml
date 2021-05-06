@@ -3,7 +3,6 @@
 <mapper namespace="com.tml.mouseDemo.data.data1.mapper.InvestDetailMapper">
 
 
-
     <resultMap id="BaseResultMap" type="com.tml.mouseDemo.model.InvestDetail">
         <!--
           id标签只能修饰主键字段，result标签修饰其他字段
@@ -11,20 +10,21 @@
           property 映射对象的属性名称
           jdbcType 对应的类型
         -->
-        <id column="id" jdbcType="BIGINT" property="id" />
-        <result column="user_name" jdbcType="VARCHAR" property="userName" />
-        <result column="stock_name" jdbcType="VARCHAR" property="stockName" />
-        <result column="stock_price" jdbcType="DOUBLE" property="stockPrice" />
-        <result column="stock_num" jdbcType="DOUBLE" property="stockNum" />
-        <result column="tax" jdbcType="DOUBLE" property="tax" />
-        <result column="purchase_flag" jdbcType="INTEGER" property="purchaseFlag" />
-        <result column="purchase_date" jdbcType="DATE" property="purchaseDate" />
-        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="stock_name" jdbcType="VARCHAR" property="stockName"/>
+        <result column="stock_price" jdbcType="DOUBLE" property="stockPrice"/>
+        <result column="stock_num" jdbcType="DOUBLE" property="stockNum"/>
+        <result column="tax" jdbcType="DOUBLE" property="tax"/>
+        <result column="purchase_flag" jdbcType="INTEGER" property="purchaseFlag"/>
+        <result column="purchase_date" jdbcType="DATE" property="purchaseDate"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
     </resultMap>
 
 
-
     <select id="listInvestByStockName" resultMap="BaseResultMap">
-        SELECT  * FROM `t_invest_detail` t WHERE t.`stock_name`= #{stockName}
+        SELECT *
+        FROM `t_invest_detail` t
+        WHERE t.`stock_name` = #{stockName}
     </select>
 </mapper>

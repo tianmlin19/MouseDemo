@@ -1,7 +1,8 @@
 package com.tml.mouseDemo;
 
 import com.tml.mouseDemo.data.data1.mapper.InvestDetailMapper;
-import com.tml.mouseDemo.model.InvestDetail;
+import com.tml.mouseDemo.data.data2.mapper.UserMapper;
+import com.tml.mouseDemo.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +15,17 @@ import java.util.List;
 class MouseDemoApplicationTests {
 
     @Autowired
-    public InvestDetailMapper investDetailMapper;
+    private InvestDetailMapper investDetailMapper;
+
+    @Autowired
+    private UserMapper userMapper;
 
 
     @Test
     void contextLoads() throws Exception {
-        List<InvestDetail> details = investDetailMapper.listInvestByStockName("TCL科技");
-        log.info("details:{}", details);
+        List<User> tml = userMapper.listByName("tml");
+
+        log.info("tml:{}", tml);
 
     }
 

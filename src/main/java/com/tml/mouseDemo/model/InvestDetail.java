@@ -8,6 +8,8 @@ import java.util.Date;
 @Data
 public class InvestDetail implements Serializable {
 
+    private static final long serialVersionUID = 5093066755281830662L;
+
     private Long id;
 
     private String userName;
