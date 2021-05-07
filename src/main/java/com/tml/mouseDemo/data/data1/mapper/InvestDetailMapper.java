@@ -10,4 +10,7 @@ import java.util.List;
 public interface InvestDetailMapper {
 
     List<InvestDetail> listInvestByStockName(@Param("stockName") String stockName);
+
+    int updateTax(@Param("tax") Double tax, @Param("investId") Long investId);
+
 }

@@ -10,4 +10,6 @@ import java.util.List;
 public interface UserMapper {
 
     List<User> listByName(@Param("userName") String userName);
+
+    int updatePwd(@Param("pwd") String pwd, @Param("uid") Long uid);
 }

@@ -27,4 +27,11 @@
         FROM `t_invest_detail` t
         WHERE t.`stock_name` = #{stockName}
     </select>
+
+    <update id="updateTax">
+        UPDATE t_invest_detail
+        SET tax=#{tax},
+            purchase_date=NOW()
+        WHERE id = #{investId};
+    </update>
 </mapper>

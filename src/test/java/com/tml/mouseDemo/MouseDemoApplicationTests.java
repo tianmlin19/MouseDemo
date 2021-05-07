@@ -23,9 +23,10 @@ class MouseDemoApplicationTests {
 
     @Test
     void contextLoads() throws Exception {
-        List<User> tml = userMapper.listByName("tml");
+       /* int updatePwd = userMapper.updatePwd("tml", 1L);*/
+        int updatePwd = investDetailMapper.updateTax(2.5, 2L);
 
-        log.info("tml:{}", tml);
+        log.info("tml:{}", updatePwd);
 
     }
 

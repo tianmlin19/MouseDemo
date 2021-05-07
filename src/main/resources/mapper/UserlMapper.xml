@@ -21,4 +21,10 @@
         FROM `user` t
         WHERE t.`user_name` = #{userName}
     </select>
+
+    <update id="updatePwd">
+        UPDATE `user`
+        SET PASSWORD=#{pwd}
+        WHERE id = #{uid}
+    </update>
 </mapper>
