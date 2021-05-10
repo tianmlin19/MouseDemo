@@ -27,4 +27,12 @@
         SET PASSWORD=#{pwd}
         WHERE id = #{uid}
     </update>
+
+
+    <select id="getOneUser" resultMap="BaseResultMap">
+        SELECT *
+        FROM `user` t
+        WHERE t.`id` = #{uid}
+    </select>
+
 </mapper>

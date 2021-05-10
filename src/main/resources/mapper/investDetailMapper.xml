@@ -34,4 +34,10 @@
             purchase_date=NOW()
         WHERE id = #{investId};
     </update>
+
+    <select id="getOneRecord" resultMap="BaseResultMap">
+        SELECT *
+        FROM `t_invest_detail` t
+        WHERE t.`id` = #{investId}
+    </select>
 </mapper>

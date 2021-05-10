@@ -13,4 +13,7 @@ public interface InvestDetailMapper {
 
     int updateTax(@Param("tax") Double tax, @Param("investId") Long investId);
 
+    InvestDetail getOneRecord(@Param("investId") Long investId);
+
+
 }
