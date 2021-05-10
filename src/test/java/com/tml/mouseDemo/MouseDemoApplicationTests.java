@@ -1,12 +1,10 @@
 package com.tml.mouseDemo;
 
-import com.tml.mouseDemo.controller.TransactionController;
 import com.tml.mouseDemo.data.data1.mapper.InvestDetailMapper;
 import com.tml.mouseDemo.data.data2.mapper.UserMapper;
 import com.tml.mouseDemo.model.InvestDetail;
 import com.tml.mouseDemo.model.User;
 import com.tml.mouseDemo.service.TransactionService;
-import com.tml.mouseDemo.service.TransactionService1;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,12 +32,6 @@ class MouseDemoApplicationTests {
 
     @Autowired
     private TransactionService transactionService;
-
-    @Autowired
-    private TransactionService1 transactionService1;
-
-    @Autowired
-    private TransactionController transactionController;
 
     private User userBefore = null;
 
