@@ -3,20 +3,9 @@ package com.tml.mouseDemo.service;
 import com.tml.mouseDemo.model.InvestDetail;
 import com.tml.mouseDemo.model.User;
 
+import java.io.IOException;
+
 public interface TransactionService {
-
-
-    /**
-     * 单个事务
-     */
-    void transeactionrollback(InvestDetail oneRecord);
-
-
-    /**
-     * 多个数据源的事务
-     */
-    void distributeTransaction(InvestDetail oneRecord);
-
 
     /**
      *
@@ -31,4 +20,54 @@ public interface TransactionService {
      * 测试mysql的分布式事务
      */
     void testDistributeTransaction(User oneUser, InvestDetail oneRecord);
+
+
+    /**
+     * 测试异常事务回滚
+     * @param oneRecord
+     * @throws IOException
+     */
+    void testRollbackException(InvestDetail oneRecord) throws IOException;
+
+
+    /**
+     * 测试事务的超时
+     * @param oneRecord
+     */
+    void testTransactionTimeOut(InvestDetail oneRecord) throws Exception;
+
+    /**
+     * 测试事务只读
+     *
+     * @param oneRecord
+     */
+    void testReadOnlyTransaction(InvestDetail oneRecord);
+
+    /**
+     * 模拟脏读
+     * @param oneRecord
+     */
+    void testReadUncommitted(InvestDetail oneRecord) throws InterruptedException;
+
+    /**
+     * 模拟脏读
+     * @param oneRecord
+     */
+    void testUnrepeat(InvestDetail oneRecord);
+
+
+
+    InvestDetail getOne(Long investId);
+
+    /**
+     * 单个事务
+     */
+    void transeactionrollback(InvestDetail oneRecord);
+
+
+    /**
+     * 多个数据源的事务
+     */
+    void distributeTransaction(InvestDetail oneRecord);
+
 }

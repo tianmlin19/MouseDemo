@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.concurrent.ThreadPoolExecutor;
+
 @SpringBootTest
 @Slf4j
 /**
@@ -22,7 +24,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  *
  *
  */
-class MouseDemoApplicationTests {
+public class MouseDemoApplicationTests {
 
     @Autowired
     private InvestDetailMapper investDetailMapper;
@@ -33,6 +35,9 @@ class MouseDemoApplicationTests {
     @Autowired
     private TransactionService transactionService;
 
+    @Autowired
+    private ThreadPoolExecutor executor;
+
     private User userBefore = null;
 
     private InvestDetail investBefore = null;
@@ -42,7 +47,7 @@ class MouseDemoApplicationTests {
         userBefore = userMapper.getOneUser(1L);
         log.info("更新前---------pwd：{}", userBefore.getPassword());
 
-        investBefore = investDetailMapper.getOneRecord(2L);
+        investBefore = investDetailMapper.getOneRecord(1L);
         log.info("更新前---------tax：{}", investBefore.getTax());
 
     }
@@ -52,7 +57,7 @@ class MouseDemoApplicationTests {
         User oneUser = userMapper.getOneUser(1L);
         log.info("更新后pwd：{}", oneUser.getPassword());
 
-        InvestDetail oneRecord = investDetailMapper.getOneRecord(2L);
+        InvestDetail oneRecord = investDetailMapper.getOneRecord(1L);
         log.info("更新后tax：{}", oneRecord.getTax());
     }
 
@@ -72,7 +77,63 @@ class MouseDemoApplicationTests {
     @Test
     public void testDistributeTranasaction() {
         transactionService.testDistributeTransaction(userBefore, investBefore);
+    }
+
+
+    @Test
+    public void  testRollbackException() throws Exception{
+        transactionService.testRollbackException(investBefore);
 
     }
+
+
+    @Test
+    public void  testTransactionTimeOut() throws Exception{
+        transactionService.testTransactionTimeOut(investBefore);
+    }
+
+    /**
+     * 测试事务只读
+     * <p>
+     * 只读事务不允许修改数据，否则
+     * java.sql.SQLException: Connection is read-only. Queries leading to data modification are not allowed
+     */
+    @Test
+    public void testReadOnlyTransaction() {
+        transactionService.testReadOnlyTransaction(investBefore);
+    }
+
+    @Test
+    public void testReadUncommitted() throws Exception {
+
+        executor.execute(() -> {
+            try {
+                log.info("read线程----");
+                Thread.sleep(500);
+                InvestDetail oneRecord = investDetailMapper.getOneRecord(2L);
+                log.info("另外一个线程查询tax：{}", oneRecord.getTax());
+            } catch (Exception e) {
+                log.error("testReadUncommitted fail", e);
+            }
+
+
+        });
+
+        executor.execute(() -> {
+            try {
+                log.info("write线程----");
+                transactionService.testReadUncommitted(investBefore);
+            } catch (Exception e) {
+                log.error("testReadUncommitted fail", e);
+            }
+        });
+
+
+        //防止因为主线程结束，导致上面两个子线程没有守护线程直接被系统kill掉
+        Thread.sleep(10000);
+
+
+    }
+
 
 }

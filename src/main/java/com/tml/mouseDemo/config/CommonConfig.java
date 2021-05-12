@@ -18,7 +18,7 @@ public class CommonConfig {
     /**
      * 线程池配置
      */
-    public ThreadPoolExecutor threadPoolExecutor() {
+    public ThreadPoolExecutor executor() {
         int processors = Runtime.getRuntime().availableProcessors();
         log.info("processors:{}", processors);
         ThreadPoolExecutor executor = new ThreadPoolExecutor(processors, processors, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>());

@@ -10,8 +10,11 @@ import com.tml.mouseDemo.service.TransactionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.IOException;
 
 @Service
 @Slf4j
@@ -68,8 +71,80 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     /**
+     * 1. 验证运行时异常的事务回滚
+     * 2. 验证检测异常时的事务回滚
      *
+     * @Transactional 默认回滚运行时异常，若需要回滚检测异常需要加上 rollbackFor = Exception.class
+     * @param oneRecord
+     * @throws IOException
      */
+    @Override
+    @Transactional
+    public void testRollbackException(InvestDetail oneRecord) throws IOException {
+        int updateTax = investDetailMapper.updateTax(oneRecord.getTax() + 1, oneRecord.getId());
+        log.info("updateTax:{}", updateTax);
+        //throw new NullPointerException();
+
+        throw new IOException();
+    }
+
+
+    /**
+     *
+     * 1. 不修改事务的默认超时，验证事务的执行情况（默认是-1，永不超时）
+     * 2、修改超时为1，单位为秒，验证事务的执行情况 timeout = 1
+     * @param oneRecord
+     * @throws Exception
+     */
+    @Override
+    @Transactional(timeout = 1)
+    public void testTransactionTimeOut(InvestDetail oneRecord) throws Exception{
+
+        int updateTax = investDetailMapper.updateTax(oneRecord.getTax() + 1, oneRecord.getId());
+        log.info("updateTax:{}", updateTax);
+        Thread.sleep(2000);
+
+
+    }
+
+    /**
+     *
+     *  SHOW VARIABLES LIKE '%tx%';
+     *
+     *  SET @@session.tx_isolation = 'READ-UNCOMMITTED';
+     * @param oneRecord
+     * @throws InterruptedException
+     */
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public void testReadUncommitted(InvestDetail oneRecord) throws InterruptedException {
+        int updateTax = investDetailMapper.updateTax(oneRecord.getTax() + 1, oneRecord.getId());
+        log.info("updateTax:{}", updateTax);
+        Thread.sleep(3000);
+        throw new RuntimeException("testDistributeTransaction fail");
+
+    }
+
+    @Override
+    public void testUnrepeat(InvestDetail oneRecord) {
+
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, readOnly = true)
+    public void testReadOnlyTransaction(InvestDetail oneRecord) {
+        int updateTax = investDetailMapper.updateTax(oneRecord.getTax() + 1, oneRecord.getId());
+        log.info("updateTax:{}", updateTax);
+        throw new RuntimeException("testDistributeTransaction fail");
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, readOnly = true)
+    public InvestDetail getOne(Long investId) {
+        InvestDetail oneRecord = investDetailMapper.getOneRecord(investId);
+        return oneRecord;
+    }
+
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void distributeTransaction(InvestDetail oneRecord) {
@@ -82,7 +157,6 @@ public class TransactionServiceImpl implements TransactionService {
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void transeactionrollback(InvestDetail oneRecord) {
         investDetailMapper.updateTax(oneRecord.getTax() + 1, oneRecord.getId());
-
     }
 
 
