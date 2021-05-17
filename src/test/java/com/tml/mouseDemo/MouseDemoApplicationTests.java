@@ -12,8 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.concurrent.ThreadPoolExecutor;
-
 @SpringBootTest
 @Slf4j
 /**
@@ -35,8 +33,6 @@ public class MouseDemoApplicationTests {
     @Autowired
     private TransactionService transactionService;
 
-    @Autowired
-    private ThreadPoolExecutor executor;
 
     private User userBefore = null;
 
@@ -86,6 +82,11 @@ public class MouseDemoApplicationTests {
 
     }
 
+    @Test
+    public void testAopImplement(){
+        transactionService.testAopImplement(investBefore);
+    }
+
 
     @Test
     public void  testTransactionTimeOut() throws Exception{
@@ -103,37 +104,7 @@ public class MouseDemoApplicationTests {
         transactionService.testReadOnlyTransaction(investBefore);
     }
 
-    @Test
-    public void testReadUncommitted() throws Exception {
 
-        executor.execute(() -> {
-            try {
-                log.info("read线程----");
-                Thread.sleep(500);
-                InvestDetail oneRecord = investDetailMapper.getOneRecord(2L);
-                log.info("另外一个线程查询tax：{}", oneRecord.getTax());
-            } catch (Exception e) {
-                log.error("testReadUncommitted fail", e);
-            }
-
-
-        });
-
-        executor.execute(() -> {
-            try {
-                log.info("write线程----");
-                transactionService.testReadUncommitted(investBefore);
-            } catch (Exception e) {
-                log.error("testReadUncommitted fail", e);
-            }
-        });
-
-
-        //防止因为主线程结束，导致上面两个子线程没有守护线程直接被系统kill掉
-        Thread.sleep(10000);
-
-
-    }
 
 
 }

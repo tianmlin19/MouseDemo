@@ -12,6 +12,8 @@ public interface TransactionService {
      * 测试Mysql引擎
      * 通过SHOW ENGINES 查看不同数据库引擎的差别，在多个引擎中，仅InnoDB支持事务管理
      *
+     * 测试
+     *
      */
     void testMysqlEngine(InvestDetail oneRecord);
 
@@ -43,17 +45,14 @@ public interface TransactionService {
      */
     void testReadOnlyTransaction(InvestDetail oneRecord);
 
-    /**
-     * 模拟脏读
-     * @param oneRecord
-     */
-    void testReadUncommitted(InvestDetail oneRecord) throws InterruptedException;
 
     /**
-     * 模拟脏读
+     * 测试springboot 中aop代理的具体实现
      * @param oneRecord
      */
-    void testUnrepeat(InvestDetail oneRecord);
+    void testAopImplement(InvestDetail oneRecord);
+
+
 
 
 
