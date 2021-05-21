@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import java.io.IOException;
 
@@ -28,6 +29,36 @@ public class TransactionServiceImpl implements TransactionService {
     @Autowired
     private Gson gson;
 
+    @Autowired
+    private TransactionTemplate transactionTemplate;
+
+
+    /**
+     * 测试spring的编程式事务管理
+     * 1.一般编程式事务管理是使用TransactionTemplate来进行操作
+     * 2.优点：相比于声明式事务管理，编程式事务管理更加的灵活多变，能最小粒度的控制事务
+     * 3.缺点：与业务代码耦合度较高
+     *
+     * @param oneRecord
+     */
+    @Override
+    public void testTransactionTemplate(InvestDetail oneRecord) {
+        log.info("do something here!");
+        doTransaction(oneRecord);
+
+    }
+
+    private void doTransaction(InvestDetail oneRecord) {
+        transactionTemplate.execute((TransactionStatus) -> {
+            int updateTax = investDetailMapper.updateTax(oneRecord.getTax() + 1, oneRecord.getId());
+            log.info("updateTax:{}", updateTax);
+
+            int i = 10 / 0;
+
+            return true;
+
+        });
+    }
 
     /**
      * 1.验证InnoDB事务能正确回滚
@@ -93,14 +124,17 @@ public class TransactionServiceImpl implements TransactionService {
     @Transactional(timeout = 1)
     public void testTransactionTimeOut(InvestDetail oneRecord) throws Exception {
 
+        Thread.sleep(2000);
         int updateTax = investDetailMapper.updateTax(oneRecord.getTax() + 1, oneRecord.getId());
         log.info("updateTax:{}", updateTax);
-        Thread.sleep(2000);
-
-
     }
 
 
+    /**
+     * 事务只读
+     * 表示这个事务只读取数据但不更新数据, 这样可以帮助数据库引擎优化事务
+     * 若更新了数据会有异常
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, readOnly = true)
     public void testReadOnlyTransaction(InvestDetail oneRecord) {
@@ -120,32 +154,18 @@ public class TransactionServiceImpl implements TransactionService {
      */
     @Override
     @Transactional
-    public  void testAopImplement(InvestDetail oneRecord) {
+    public void testAopImplement(InvestDetail oneRecord) {
         int updateTax = investDetailMapper.updateTax(oneRecord.getTax() + 1, oneRecord.getId());
         log.info("updateTax:{}", updateTax);
         throw new RuntimeException("testDistributeTransaction fail");
     }
 
-    @Override
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, readOnly = true)
-    public InvestDetail getOne(Long investId) {
-        InvestDetail oneRecord = investDetailMapper.getOneRecord(investId);
-        return oneRecord;
-    }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public void distributeTransaction(InvestDetail oneRecord) {
-        investDetailMapper.updateTax(oneRecord.getTax() + 1, oneRecord.getId());
+    @Transactional
+    public void testCallMyself(InvestDetail oneRecord) {
+        log.info("testCallMyself");
 
-        throw new RuntimeException("");
+        this.testAopImplement(oneRecord);
     }
-
-    @Override
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public void transeactionrollback(InvestDetail oneRecord) {
-        investDetailMapper.updateTax(oneRecord.getTax() + 1, oneRecord.getId());
-    }
-
-
 }

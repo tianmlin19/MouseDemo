@@ -33,7 +33,6 @@ public class MouseDemoApplicationTests {
     @Autowired
     private TransactionService transactionService;
 
-
     private User userBefore = null;
 
     private InvestDetail investBefore = null;
@@ -59,6 +58,14 @@ public class MouseDemoApplicationTests {
 
 
     /**
+     * 测试编程式事务管理
+     */
+    @Test
+    public void testTransactionTemplate() {
+        transactionService.testTransactionTemplate(investBefore);
+    }
+
+    /**
      * 测试 mysql 不同引擎对事务的影响
      */
     @Test
@@ -76,20 +83,31 @@ public class MouseDemoApplicationTests {
     }
 
 
+    /**
+     * 测试事务回滚
+     */
     @Test
-    public void  testRollbackException() throws Exception{
+    public void testRollbackException() throws Exception {
         transactionService.testRollbackException(investBefore);
 
     }
 
+    /**
+     * 测试aop实现
+     */
     @Test
-    public void testAopImplement(){
+    public void testAopImplement() {
         transactionService.testAopImplement(investBefore);
     }
 
 
+    /**
+     * 测试事务超时
+     *
+     * @throws Exception
+     */
     @Test
-    public void  testTransactionTimeOut() throws Exception{
+    public void testTransactionTimeOut() throws Exception {
         transactionService.testTransactionTimeOut(investBefore);
     }
 
@@ -105,6 +123,11 @@ public class MouseDemoApplicationTests {
     }
 
 
+    @Test
+    public void testCallMyself() {
+        transactionService.testCallMyself(investBefore);
+
+    }
 
 
 }
