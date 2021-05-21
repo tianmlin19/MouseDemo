@@ -27,7 +27,7 @@ public class TransactionController {
     @GetMapping("demo1")
     public String transaction() {
         InvestDetail investBefore = investDetailMapper.getOneRecord(1L);
-        transactionService.testCallMyself(investBefore);
+        //transactionService.testCallMyself(investBefore);
         return gson.toJson(CommonResponse.success("success"));
     }
 

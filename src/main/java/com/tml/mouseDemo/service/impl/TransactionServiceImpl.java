@@ -160,12 +160,4 @@ public class TransactionServiceImpl implements TransactionService {
         throw new RuntimeException("testDistributeTransaction fail");
     }
 
-
-    @Override
-    @Transactional
-    public void testCallMyself(InvestDetail oneRecord) {
-        log.info("testCallMyself");
-
-        this.testAopImplement(oneRecord);
-    }
 }

@@ -62,11 +62,7 @@ public interface TransactionService {
     void testAopImplement(InvestDetail oneRecord);
 
 
-    /**
-     * 自调用
-     * @param oneRecord
-     */
-    void testCallMyself(InvestDetail oneRecord);
+
 
 
 }

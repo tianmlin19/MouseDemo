@@ -123,11 +123,4 @@ public class MouseDemoApplicationTests {
     }
 
 
-    @Test
-    public void testCallMyself() {
-        transactionService.testCallMyself(investBefore);
-
-    }
-
-
 }
