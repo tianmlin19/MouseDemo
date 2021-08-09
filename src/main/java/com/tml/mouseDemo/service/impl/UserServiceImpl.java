@@ -7,4 +7,10 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class UserServiceImpl implements UserService {
+    @Override
+    public String printUser(String userName,String value) {
+        log.info("UserService printUser！");
+
+        return userName + value;
+    }
 }
