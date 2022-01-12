@@ -17,14 +17,14 @@ public class FibonacciBase {
          */
         StopWatch sw = new StopWatch();
 
-        int num = 50;
+        int num = 36;
         sw.start("斐波那契数列计算" + num);
         long fibonacciNum = getFibonacciNum(num);
         log.info("计算斐波那契数列：{}返回结果：{}", num, fibonacciNum);
         sw.stop();
 
 
-        num = 50;
+        num = 36;
         sw.start("斐波那契数列计算" + num);
         fibonacciNum = dpfibonacci(num);
         log.info("计算斐波那契数列：{}返回结果：{}", num, fibonacciNum);
@@ -35,23 +35,25 @@ public class FibonacciBase {
 
     /**
      * 普通的递归计算
+     *
      * @param num
      * @return
      */
-    public static long getFibonacciNum(int num){
+    public static long getFibonacciNum(int num) {
         if (num < 3) {
-            return num-1;
+            return num - 1;
         }
         return getFibonacciNum(num - 1) + getFibonacciNum(num - 2);
     }
 
     /**
      * 采用自底向上的方式计算
+     *
      * @param num 斐波那契数列的第几个数从1开始
      *            0 1 1 2 3 5 8 13
      * @return
      */
-    public static long dpfibonacci(int num){
+    public static long dpfibonacci(int num) {
         long[] dp = new long[num];
         dp[1] = 1;
         if (num < 3) {
