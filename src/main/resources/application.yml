@@ -17,3 +17,8 @@ spring:
       username: root
       password: root
       driver-class-name: com.mysql.jdbc.Driver
+
+  logging:
+    level:
+      com.tml.mouseDemo.data.*: debug
+    config: classpath:logback.xml
