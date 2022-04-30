@@ -36,6 +36,7 @@ public class CommonConfig {
         return executor;
     }
 
+
     @Bean
     public ThreadPoolExecutor uncaughtExceptionExecutor() {
 
@@ -52,6 +53,10 @@ public class CommonConfig {
                 new ThreadPoolExecutor.AbortPolicy());
         return executor;
     }
+
+
+
+
 
 
     @Bean

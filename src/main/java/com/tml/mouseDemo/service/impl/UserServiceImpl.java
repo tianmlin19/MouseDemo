@@ -36,6 +36,7 @@ public class UserServiceImpl implements UserService {
                 countDownLatch.countDown();
 
             });
+
         }
 
         countDownLatch.await();
@@ -45,7 +46,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void executorSubmitTest() throws ExecutionException, InterruptedException {
-        Future<Integer> submit = uncaughtExceptionExecutor.submit(() -> {
+
+        uncaughtExceptionExecutor.execute(() -> {
+            String str = null;
+            log.info("execute str:{}", str);
+
+            int length = str.length();
+        });
+
+        /*Future<Integer> submit = uncaughtExceptionExecutor.submit(() -> {
             String str = null;
             log.info("execute str:{}", str);
 
@@ -60,7 +69,7 @@ public class UserServiceImpl implements UserService {
             log.info("concurrent result:{}", integer);
         } catch (Exception e) {
             log.error("occur error", e);
-        }
+        }*/
 
 
     }
@@ -75,9 +84,6 @@ public class UserServiceImpl implements UserService {
                 log.info("execute str:{}", str);
 
                 int length = str.length();
-
-                countDownLatch.countDown();
-
             });
         }
 
