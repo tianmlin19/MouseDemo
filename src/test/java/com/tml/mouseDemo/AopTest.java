@@ -12,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ThreadPoolExecutor;
 
 @SpringBootTest
 @Slf4j
@@ -29,11 +31,20 @@ public class AopTest {
     @Autowired
     private Map<String, BaseService> payMap;
 
-    @Test
-    public void testBeforeAdvice() {
 
-        List<InvestDetail> investDetails = investDetailMapper.listInvestByStockName("招商银行");
-        log.info("investDetails:{}", investDetails);
+    @Test
+    public void testCustomExecutor() throws Exception {
+        userService.customExecutor();
+    }
+
+    @Test
+    public void testExecutorExecute() throws Exception {
+        userService.executorLogTest();
+    }
+
+    @Test
+    public void testExecutorSubmit() throws ExecutionException, InterruptedException {
+        userService.executorSubmitTest();
 
     }
 

@@ -1,27 +1,73 @@
 package com.tml.mouseDemo.config;
 
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.tml.mouseDemo.model.CustomThreadPoolExecutor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 @Slf4j
 @Configuration
 public class CommonConfig {
 
+    Thread.UncaughtExceptionHandler exceptionHandler = (Thread t, Throwable e) -> {
+        log.info("current thread occurs error！", e);
+    };
+
     @Bean
-    /**
-     * 线程池配置
-     */
     public ThreadPoolExecutor executor() {
+
+        ThreadFactory threadFactory = new ThreadFactoryBuilder().
+                setUncaughtExceptionHandler(exceptionHandler).
+                setNameFormat("mouse-worker-%d").build();
         int processors = Runtime.getRuntime().availableProcessors();
         log.info("processors:{}", processors);
-        ThreadPoolExecutor executor = new ThreadPoolExecutor(processors, processors, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>());
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(processors,
+                processors * 2,
+                0L,
+                TimeUnit.MILLISECONDS,
+                new LinkedBlockingDeque<>(1000),
+                threadFactory,
+                new ThreadPoolExecutor.AbortPolicy());
+        return executor;
+    }
+
+    @Bean
+    public ThreadPoolExecutor uncaughtExceptionExecutor() {
+
+        ThreadFactory threadFactory = new ThreadFactoryBuilder().
+                setNameFormat("uncaughtException-worker-%d").build();
+        int processors = Runtime.getRuntime().availableProcessors();
+        log.info("processors:{}", processors);
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(processors,
+                processors * 2,
+                0L,
+                TimeUnit.MILLISECONDS,
+                new LinkedBlockingDeque<>(1000),
+                threadFactory,
+                new ThreadPoolExecutor.AbortPolicy());
+        return executor;
+    }
+
+
+    @Bean
+    public CustomThreadPoolExecutor customExecutor() {
+
+        ThreadFactory threadFactory = new ThreadFactoryBuilder().
+                setNameFormat("custom-worker-%d").build();
+        int processors = Runtime.getRuntime().availableProcessors();
+        log.info("processors:{}", processors);
+        CustomThreadPoolExecutor executor = new CustomThreadPoolExecutor(processors,
+                processors * 2,
+                0L,
+                TimeUnit.MILLISECONDS,
+                new LinkedBlockingDeque<>(1000),
+                threadFactory,
+                new ThreadPoolExecutor.AbortPolicy());
         return executor;
     }
 
