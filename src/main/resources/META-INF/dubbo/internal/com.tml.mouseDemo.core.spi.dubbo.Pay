@@ -1,0 +1,2 @@
+alipay=com.tml.mouseDemo.core.spi.dubbo.Alipay
+wechatpay=com.tml.mouseDemo.core.spi.dubbo.WechatPay

@@ -1,4 +1,4 @@
-package com.tml.mouseDemo.core.spi;
+package com.tml.mouseDemo.core.spi.jdk;
 
 public interface JdkSpiService {
 

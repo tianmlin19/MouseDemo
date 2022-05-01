@@ -1,11 +1,13 @@
 package com.tml.mouseDemo;
 
+import com.tml.mouseDemo.core.spi.dubbo.Pay;
 import com.tml.mouseDemo.data.data1.mapper.InvestDetailMapper;
 import com.tml.mouseDemo.model.InvestDetail;
 import com.tml.mouseDemo.service.BaseService;
 import com.tml.mouseDemo.service.InvestDetailService;
 import com.tml.mouseDemo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.common.extension.ExtensionLoader;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -34,7 +36,11 @@ public class AopTest {
 
     @Test
     public void testCustomExecutor() throws Exception {
-        userService.customExecutor();
+        ExtensionLoader<Pay> extensionLoader = ExtensionLoader.getExtensionLoader(Pay.class);
+
+        //获取指定名称的扩展类
+        Pay alipay = extensionLoader.getExtension("wechatPay");
+        alipay.getPayType();
     }
 
     @Test

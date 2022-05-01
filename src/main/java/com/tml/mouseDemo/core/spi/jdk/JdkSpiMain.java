@@ -1,4 +1,4 @@
-package com.tml.mouseDemo.core.spi;
+package com.tml.mouseDemo.core.spi.jdk;
 
 import java.util.Iterator;
 import java.util.ServiceLoader;
@@ -7,6 +7,8 @@ import java.util.ServiceLoader;
  * JDK的SPI机制
  *
  * 会加载META-INF/services目录下的接口文件
+ *
+ * META-INF/dubbo/internal
  *
  *
  */
