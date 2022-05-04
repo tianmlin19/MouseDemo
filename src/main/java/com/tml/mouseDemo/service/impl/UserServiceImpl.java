@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
         CountDownLatch countDownLatch = new CountDownLatch(count);
         for (int i = 0; i < count; i++) {
             customExecutor.execute(() -> {
-                String str = null;
+                String str = "customExecutor";
                 log.info("customExecutor str:{}", str);
 
                 int length = str.length();
