@@ -2,8 +2,7 @@ package com.tml.mouseDemo.service.impl;
 
 import cn.hutool.core.date.DateUtil;
 import com.google.gson.Gson;
-import com.tml.mouseDemo.data.data1.mapper.InvestDetailMapper;
-import com.tml.mouseDemo.data.data2.mapper.UserMapper;
+import com.tml.mouseDemo.mapper.UserMapper;
 import com.tml.mouseDemo.model.InvestDetail;
 import com.tml.mouseDemo.model.User;
 import com.tml.mouseDemo.service.TransactionService;
@@ -23,8 +22,6 @@ public class TransactionServiceImpl implements TransactionService {
     @Autowired
     private UserMapper userMapper;
 
-    @Autowired
-    private InvestDetailMapper investDetailMapper;
 
     @Autowired
     private Gson gson;
@@ -49,15 +46,7 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     private void doTransaction(InvestDetail oneRecord) {
-        transactionTemplate.execute((TransactionStatus) -> {
-            int updateTax = investDetailMapper.updateTax(oneRecord.getTax() + 1, oneRecord.getId());
-            log.info("updateTax:{}", updateTax);
 
-            int i = 10 / 0;
-
-            return true;
-
-        });
     }
 
     /**
@@ -67,8 +56,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void testMysqlEngine(InvestDetail oneRecord) {
-        int updateTax = investDetailMapper.updateTax(oneRecord.getTax() + 1, oneRecord.getId());
-        log.info("updateTax:{}", updateTax);
+        log.info("updateTax:{}", 1);
         throw new RuntimeException("testMysqlEngine fail");
     }
 
@@ -89,8 +77,7 @@ public class TransactionServiceImpl implements TransactionService {
         String now = DateUtil.now();
         int updatePwd = userMapper.updatePwd(now, oneUser.getId());
         log.info("updatePwd:{}", updatePwd);
-        int updateTax = investDetailMapper.updateTax(oneRecord.getTax() + 1, oneRecord.getId());
-        log.info("updateTax:{}", updateTax);
+        log.info("updateTax:{}", 1);
         throw new RuntimeException("testDistributeTransaction fail");
     }
 
@@ -105,8 +92,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @Transactional
     public void testRollbackException(InvestDetail oneRecord) throws IOException {
-        int updateTax = investDetailMapper.updateTax(oneRecord.getTax() + 1, oneRecord.getId());
-        log.info("updateTax:{}", updateTax);
+        log.info("updateTax:{}", 1);
         //throw new NullPointerException();
 
         throw new IOException();
@@ -125,8 +111,7 @@ public class TransactionServiceImpl implements TransactionService {
     public void testTransactionTimeOut(InvestDetail oneRecord) throws Exception {
 
         Thread.sleep(2000);
-        int updateTax = investDetailMapper.updateTax(oneRecord.getTax() + 1, oneRecord.getId());
-        log.info("updateTax:{}", updateTax);
+        log.info("updateTax:{}", 1);
     }
 
 
@@ -138,8 +123,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, readOnly = true)
     public void testReadOnlyTransaction(InvestDetail oneRecord) {
-        int updateTax = investDetailMapper.updateTax(oneRecord.getTax() + 1, oneRecord.getId());
-        log.info("updateTax:{}", updateTax);
+        log.info("updateTax:{}", 1);
         throw new RuntimeException("testDistributeTransaction fail");
     }
 
@@ -155,8 +139,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @Transactional
     public void testAopImplement(InvestDetail oneRecord) {
-        int updateTax = investDetailMapper.updateTax(oneRecord.getTax() + 1, oneRecord.getId());
-        log.info("updateTax:{}", updateTax);
+        log.info("updateTax:{}", 1);
         throw new RuntimeException("testDistributeTransaction fail");
     }
 

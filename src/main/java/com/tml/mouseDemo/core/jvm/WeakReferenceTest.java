@@ -10,7 +10,7 @@ import java.lang.ref.WeakReference;
 public class WeakReferenceTest {
 
     public static void main(String[] args) throws InterruptedException {
-        WeakReference<User> weakReference = new WeakReference<>(new User(1L,"123","456"));
+        WeakReference<User> weakReference = null;
 
         System.out.println(weakReference.get());
 

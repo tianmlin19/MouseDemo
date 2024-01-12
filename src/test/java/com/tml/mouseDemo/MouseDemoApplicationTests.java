@@ -1,18 +1,19 @@
 package com.tml.mouseDemo;
 
-import com.tml.mouseDemo.data.data1.mapper.InvestDetailMapper;
-import com.tml.mouseDemo.data.data2.mapper.UserMapper;
+import com.tml.mouseDemo.mapper.UserMapper;
 import com.tml.mouseDemo.model.InvestDetail;
 import com.tml.mouseDemo.model.User;
 import com.tml.mouseDemo.service.TransactionService;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
+import org.springframework.test.context.junit4.SpringRunner;
 
 @SpringBootTest
+@RunWith(SpringRunner.class)
 @Slf4j
 /**
  *
@@ -24,8 +25,6 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 public class MouseDemoApplicationTests {
 
-    @Autowired
-    private InvestDetailMapper investDetailMapper;
 
     @Autowired
     private UserMapper userMapper;
@@ -37,23 +36,14 @@ public class MouseDemoApplicationTests {
 
     private InvestDetail investBefore = null;
 
-    @BeforeEach
-    public void begin() {
-        userBefore = userMapper.getOneUser(1L);
-        log.info("更新前---------pwd：{}", userBefore.getPassword());
 
-        investBefore = investDetailMapper.getOneRecord(1L);
-        log.info("更新前---------tax：{}", investBefore.getTax());
+    @Autowired
+    private ApplicationContext applicationContext;
 
-    }
-
-    @AfterEach
-    public void end() {
+    @Test
+    public void testEs() {
         User oneUser = userMapper.getOneUser(1L);
-        log.info("更新后pwd：{}", oneUser.getPassword());
-
-        InvestDetail oneRecord = investDetailMapper.getOneRecord(1L);
-        log.info("更新后tax：{}", oneRecord.getTax());
+        log.info("oneUser:{}", oneUser);
     }
 
 

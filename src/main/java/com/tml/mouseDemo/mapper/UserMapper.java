@@ -1,4 +1,4 @@
-package com.tml.mouseDemo.data.data2.mapper;
+package com.tml.mouseDemo.mapper;
 
 import com.tml.mouseDemo.model.User;
 import org.apache.ibatis.annotations.Mapper;

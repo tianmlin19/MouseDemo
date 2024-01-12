@@ -1,4 +1,4 @@
-package com.tml.mouseDemo.model;
+package com.tml.mouseDemo.config;
 
 import lombok.extern.slf4j.Slf4j;
 

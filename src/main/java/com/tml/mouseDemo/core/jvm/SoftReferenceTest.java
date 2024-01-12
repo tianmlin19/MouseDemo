@@ -12,7 +12,7 @@ import java.lang.ref.SoftReference;
 public class SoftReferenceTest {
 
     public static void main(String[] args) throws InterruptedException {
-        SoftReference<User> softReference = new SoftReference<>(new User(1L,"123","456"));
+        SoftReference<User> softReference = null;
 
         System.out.println(softReference.get());
 

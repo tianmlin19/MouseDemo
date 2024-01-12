@@ -1,8 +1,7 @@
 package com.tml.mouseDemo.service.impl;
 
-import com.tml.mouseDemo.model.CustomThreadPoolExecutor;
+import com.tml.mouseDemo.config.CustomThreadPoolExecutor;
 import com.tml.mouseDemo.service.UserService;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

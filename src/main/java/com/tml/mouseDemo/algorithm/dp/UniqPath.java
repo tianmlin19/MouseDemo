@@ -1,5 +1,6 @@
 package com.tml.mouseDemo.algorithm.dp;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 /**
@@ -8,7 +9,11 @@ import java.util.Arrays;
 public class UniqPath {
 
     public static void main(String[] args) {
-        System.out.println(solution(2, 3));
+        byte[] bytes = "你".getBytes(StandardCharsets.UTF_8);
+        for (byte t:bytes){
+            System.out.println(t);
+        }
+        // System.out.println(solution(2, 3));
     }
 
     public static int solution(int m,int n){
