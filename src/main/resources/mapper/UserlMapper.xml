@@ -4,17 +4,12 @@
 
 
     <resultMap id="BaseResultMap" type="com.tml.mouseDemo.model.User">
-        <!--
-          id标签只能修饰主键字段，result标签修饰其他字段
-          column 数据库中的字段名称
-          property 映射对象的属性名称
-          jdbcType 对应的类型
-        -->
+
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="user_name" jdbcType="VARCHAR" property="userName"/>
-        <result column="remark" jdbcType="VARCHAR" property="remark"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
     </resultMap>
 
 
@@ -24,11 +19,8 @@
         WHERE t.`user_name` = #{userName}
     </select>
 
-    <update id="updatePwd">
-        UPDATE `t_user`
-        SET PASSWORD=#{pwd}
-        WHERE id = #{uid}
-    </update>
+
+
 
 
     <select id="getOneUser" resultMap="BaseResultMap">

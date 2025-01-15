@@ -1,4 +1,4 @@
-package com.tml.mouseDemo.algorithm.sort;
+package com.tml.mouseDemo.core.algorithm.sort;
 
 import lombok.extern.slf4j.Slf4j;
 

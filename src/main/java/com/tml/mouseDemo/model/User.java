@@ -20,7 +20,8 @@ public class User implements Serializable {
 
     private String password;
 
-    private String remark;
+    private Integer status;
 
     private Date createTime;
+
 }

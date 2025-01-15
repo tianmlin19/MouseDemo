@@ -1,9 +1,6 @@
 package com.tml.mouseDemo.core;
 
-import com.google.common.collect.Lists;
-
-import java.util.ArrayList;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutionException;
 
 public class ThreadPoolDemo {
     public static void main(String[] args) throws InterruptedException, ExecutionException {
@@ -55,13 +52,13 @@ public class ThreadPoolDemo {
 
     }
 
-    public static void p(){
+    public static void p() {
         for (int i = 3; i < 1000000; i++) {
             isPrime(i);
         }
     }
 
-    public static boolean isPrime(int num){
+    public static boolean isPrime(int num) {
         for (int i = 2; i < num / 2; i++) {
             if (num % i == 0) {
                 return false;

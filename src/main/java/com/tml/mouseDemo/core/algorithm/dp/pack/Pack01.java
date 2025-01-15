@@ -1,4 +1,4 @@
-package com.tml.mouseDemo.algorithm.dp.pack;
+package com.tml.mouseDemo.core.algorithm.dp.pack;
 
 import java.util.ArrayList;
 import java.util.HashMap;

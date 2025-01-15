@@ -1,4 +1,4 @@
-package com.tml.mouseDemo.io.bio;
+package com.tml.mouseDemo.core.bio;
 
 import java.io.IOException;
 import java.net.ServerSocket;

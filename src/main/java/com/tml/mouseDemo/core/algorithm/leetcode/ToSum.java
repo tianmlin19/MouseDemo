@@ -1,4 +1,4 @@
-package com.tml.mouseDemo.algorithm.leetcode;
+package com.tml.mouseDemo.core.algorithm.leetcode;
 
 import java.util.Arrays;
 import java.util.HashMap;

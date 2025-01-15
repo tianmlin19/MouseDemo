@@ -1,4 +1,4 @@
-package com.tml.mouseDemo.algorithm.leetcode.prefixArray;
+package com.tml.mouseDemo.core.algorithm.leetcode.prefixArray;
 
 public class NumArray {
 

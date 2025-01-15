@@ -1,4 +1,4 @@
-package com.tml.mouseDemo.algorithm.sort;
+package com.tml.mouseDemo.core.algorithm.sort;
 
 import java.util.Arrays;
 import java.util.Random;

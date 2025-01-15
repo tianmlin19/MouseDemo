@@ -1,4 +1,4 @@
-package com.tml.mouseDemo.algorithm.dp;
+package com.tml.mouseDemo.core.algorithm.dp;
 
 import lombok.extern.slf4j.Slf4j;
 

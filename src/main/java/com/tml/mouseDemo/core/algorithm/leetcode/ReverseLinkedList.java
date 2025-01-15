@@ -1,4 +1,4 @@
-package com.tml.mouseDemo.algorithm.leetcode;
+package com.tml.mouseDemo.core.algorithm.leetcode;
 
 /**
  * 链表翻转

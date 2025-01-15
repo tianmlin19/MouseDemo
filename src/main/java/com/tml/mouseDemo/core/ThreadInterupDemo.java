@@ -1,18 +1,9 @@
 package com.tml.mouseDemo.core;
 
 
-import cn.hutool.core.io.FastByteArrayOutputStream;
 import cn.hutool.core.io.IoUtil;
-import com.tml.mouseDemo.algorithm.sort.SortUtil;
-import com.tml.mouseDemo.core.juc.ReentrantLockDemo;
 
 import java.io.FileInputStream;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.concurrent.locks.LockSupport;
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
-import java.util.regex.Pattern;
 
 /**
  * 在Thread类中有interrupt()，interrupted()和isInterrupted()方法与线程的中断有关
@@ -20,10 +11,6 @@ import java.util.regex.Pattern;
 public class ThreadInterupDemo {
 
     public static void main(String[] args) {
-
-
-
-
 
 
         Thread thread = new Thread(() -> {

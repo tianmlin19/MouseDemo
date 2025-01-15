@@ -7,16 +7,13 @@ mybatis:
 
 spring:
   datasource:
-    data1:
-      jdbc-url: jdbc:mysql://localhost:3306/tml?characterEncoding=utf8&useUnicode=true&useSSL=false&serverTimezone=GMT%2B8
-      username: root
-      password: root
-      driver-class-name: com.mysql.jdbc.Driver
-    data2:
-      jdbc-url: jdbc:mysql://localhost:3306/mouse?characterEncoding=utf8&useUnicode=true&useSSL=false&serverTimezone=GMT%2B8
-      username: root
-      password: root
-      driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:db_users;MODE=MYSQL;INIT=RUNSCRIPT FROM 'classpath:sql/init.sql'
+    username: tml
+    password: helloTml
+  h2:
+    console:
+      enabled: true
 
   logging:
     level:

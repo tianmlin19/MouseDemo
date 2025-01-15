@@ -1,4 +1,4 @@
-package com.tml.mouseDemo.algorithm.dp;
+package com.tml.mouseDemo.core.algorithm.dp;
 
 public class MinValue {
 
