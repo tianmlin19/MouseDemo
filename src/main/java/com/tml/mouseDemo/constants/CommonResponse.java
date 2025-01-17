@@ -1,5 +1,6 @@
 package com.tml.mouseDemo.constants;
 
+import com.tml.mouseDemo.core.i18n.I18nUtil;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -46,4 +47,14 @@ public class CommonResponse<T> implements Serializable {
         result.setMsg(msg);
         return result;
     }
+
+    public static CommonResponse failWithI18n(I18nKey i18nKey) {
+        CommonResponse result = new CommonResponse();
+        result.setCode(i18nKey.getCode());
+        String i18nMessage = I18nUtil.getI18nMessage(i18nKey);
+        result.setMsg(i18nMessage);
+        return result;
+    }
+
+
 }

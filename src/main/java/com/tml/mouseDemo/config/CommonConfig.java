@@ -1,5 +1,6 @@
 package com.tml.mouseDemo.config;
 
+import com.alibaba.ttl.threadpool.TtlExecutors;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -25,7 +26,7 @@ public class CommonConfig {
                 setNameFormat("mouse-worker-%d").build();
         int processors = Runtime.getRuntime().availableProcessors();
         log.info("processors:{}", processors);
-        ThreadPoolExecutor executor = new ThreadPoolExecutor(processors,
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(1,
                 processors * 2,
                 0L,
                 TimeUnit.MILLISECONDS,
@@ -33,6 +34,31 @@ public class CommonConfig {
                 threadFactory,
                 new ThreadPoolExecutor.AbortPolicy());
         return executor;
+    }
+
+
+    /**
+     * 使用阿里的 TransmittableThreadLocal 装饰线程池
+     * @return
+     */
+    @Bean
+    public Executor ttlExecutor() {
+
+        ThreadFactory threadFactory = new ThreadFactoryBuilder().
+                setUncaughtExceptionHandler(exceptionHandler).
+                setNameFormat("mouse-worker-ttl-%d").build();
+        int processors = Runtime.getRuntime().availableProcessors();
+        log.info("processors:{}", processors);
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(1,
+                processors * 2,
+                0L,
+                TimeUnit.MILLISECONDS,
+                new LinkedBlockingDeque<>(1000),
+                threadFactory,
+                new ThreadPoolExecutor.AbortPolicy());
+
+        Executor ttlExecutor = TtlExecutors.getTtlExecutor(executor);
+        return ttlExecutor;
     }
 
 
