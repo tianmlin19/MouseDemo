@@ -28,6 +28,7 @@ public class WebAppConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new TraceInterceptor()).addPathPatterns("/**");
         registry.addInterceptor(new RequestInterceptor()).addPathPatterns("/**");
     }
 }

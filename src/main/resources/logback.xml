@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
+
+    <conversionRule conversionWord="traceId" converterClass="com.tml.mouseDemo.core.log.TraceIdConverter"/>
     <contextName>${APP_NAME}</contextName>
     <property name="APP_NAME" value="MouseDemo"/>
     <property name="LOG_PATH" value="./system_log/MouseDemo"/>
 
+
+
     <property name="CONSOLE_LOG_PATTERN"
-              value="%date{yyyy-MM-dd HH:mm:ss} | %highlight(%-5level) | %boldYellow(%thread) | %boldGreen(%logger) | %msg%n"/>
+              value="%d | %traceId| %highlight(%-5level) | %boldYellow(%thread) | %boldGreen(%logger) | %msg%n"/>
     <!--输出到控制台-->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
